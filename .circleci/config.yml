@@ -7,7 +7,9 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      # - image: circleci/node:7.10
+      - image: circleci/node:9.5-browsers
+
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -28,10 +30,42 @@ jobs:
 
       - run: yarn install
 
+      - run:
+          name: Rebuild native dependencies
+          command: npm rebuild
+          when: on_fail
+
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
-      - run: yarn test
+
+      - run:
+          name: Starting node server
+          command: mkdir logs && yarn start
+          background: true
+
+      - run:
+          name: View IP address
+          command: sleep 5 && node -p "require('ip').address()"
+
+      - run:
+          name: Storing local IP address
+          command: node -p "require('ip').address()" > logs/ip.log
+
+      - run:
+          name: waiting for node server to start
+          command: wget --retry-connrefused --waitretry=5 -t 5 "http://$(cat logs/ip.log):3000" > /dev/null
+
+      - run:
+          name: running tests
+          command: yarn test
+
+      - store_artifacts:
+          path: logs
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
