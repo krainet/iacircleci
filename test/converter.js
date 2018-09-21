@@ -76,8 +76,9 @@ describe("Color Code Converter API 1", function() {
 
 describe("Color Code Converter API 4", function() {
     var myIp = fs.readFileSync('logs/ip.log', 'utf8');
-    console.log(myIp);
+
     describe("RGB to Hex conversion 5", function() {
+
         var url = "http://"+myIp+":3000/rgbToHex?red=255&green=255&blue=255";
         console.log(url);
 
@@ -98,6 +99,7 @@ describe("Color Code Converter API 4", function() {
     });
 
     describe("Hex to RGB conversion 6", function() {
+
         var url = "http://"+myIp+":3000/hexToRgb?hex=00ff00";
 
         it("returns status 200", function(done) {
