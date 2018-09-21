@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var converter = require("./converter");
+var ip = require('ip');
 
 app.get("/rgbToHex", function(req, res) {
   var red   = parseInt(req.query.red, 10);
@@ -21,4 +22,5 @@ app.get("/hexToRgb", function(req, res) {
 });
 
 console.log('Listening to port 3000');
+console.log('IP: '+ip.address());
 app.listen(3000);
