@@ -102,6 +102,9 @@ describe("Color Code Converter API", function() {
 
         it("returns status 200", function(done) {
             request(url, function(error, response, body) {
+                console.log(error);
+                console.log(response);
+                console.log(body);
                 expect(response.statusCode).to.equal(200);
                 done();
             });
