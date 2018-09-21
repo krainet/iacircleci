@@ -47,7 +47,7 @@ jobs:
 
       - run:
           name: View IP address
-          command: node -p "require('ip').address()"
+          command: sleep 5 && node -p "require('ip').address()"
 
       - run:
           name: Storing local IP address
@@ -55,7 +55,7 @@ jobs:
 
       - run:
           name: waiting for node server to start
-          command: wget --retry-connrefused --waitretry=2 -t 5 "http://$(cat logs/ip.log)" > /dev/null
+          command: wget --retry-connrefused --waitretry=5 -t 5 "http://$(cat logs/ip.log):3000" > /dev/null
 
       - run:
           name: running tests
