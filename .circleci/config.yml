@@ -36,6 +36,8 @@ jobs:
       # run app!
       - run: yarn start
   test:
+    requires:
+      - build
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo
