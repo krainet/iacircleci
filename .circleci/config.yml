@@ -42,8 +42,12 @@ jobs:
 
       - run:
           name: Starting node server
-          command: mkdir logs && yarn start 2>&1 | tee logs/node_server.log
+          command: command: mkdir logs && yarn start 2>&1 | tee logs/node_server.log
           background: true
+
+      - run:
+          name: View IP address
+          command: node -p "require('ip').address()"
 
       - run:
           name: Storing local IP address
