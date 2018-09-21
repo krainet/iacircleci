@@ -42,7 +42,7 @@ jobs:
 
       - run:
           name: Starting node server
-          command: command: mkdir logs && yarn start 2>&1 | tee logs/node_server.log
+          command: mkdir logs && yarn start 2>&1 | tee logs/node_server.log
           background: true
 
       - run:
