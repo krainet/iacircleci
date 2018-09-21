@@ -21,6 +21,10 @@ app.get("/hexToRgb", function(req, res) {
   res.send(JSON.stringify(rgb));
 });
 
+app.get("/",function(req,res){
+  res.send("Fine");
+});
+
 console.log('Listening to port 3000');
 console.log('IP: '+ip.address());
 app.listen(3000);
