@@ -26,30 +26,40 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install      
+      - run: yarn install
+
+      - run:
+          name: Rebuild native dependencies
+          command: npm rebuild
+          when: on_fail
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-  test:
-    requires:
-      - build
-    docker:
-      - image: circleci/node:7.10
-    working_directory: ~/repo
 
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}          
-          - v1-dependencies-      
-      - run: yarn test
+      - run:
+          name: Starting node server
+          command: mkdir logs && yarn start 2>&1 | tee logs/node_server.log
+          background: true
+
+      - run:
+          name: Storing local IP address
+          command: node -p "require('ip').address()" > logs/ip.log
+
+      - run:
+          name: waiting for node server to start
+          command: wget --retry-connrefused --waitretry=2 -t 5 "http://$(cat logs/ip.log):3000" > /dev/null
+
+      - run:
+          name: running tests
+          command: yarn test
+
+      - store_artifacts:
+          path: logs
+
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
       - build
-      - test
