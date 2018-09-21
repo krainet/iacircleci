@@ -50,9 +50,9 @@ describe("Color Code Converter API", function() {
 
 });
 
-describe("Color Code Converter API 1", function() {
+describe("Color Code Converter API", function() {
     var myIp = fs.readFileSync('logs/ip.log', 'utf8');
-    describe("RGB to Hex conversion 2", function() {
+    describe("RGB to Hex conversion", function() {
 
         var url = "http://"+myIp+":3000/rgbToHex?red=255&green=255&blue=255";
 
@@ -62,7 +62,7 @@ describe("Color Code Converter API 1", function() {
 
     });
 
-    describe("Hex to RGB conversion 3", function() {
+    describe("Hex to RGB conversion", function() {
 
         var url = "http://"+myIp+":3000/hexToRgb?hex=00ff00";
 
@@ -70,54 +70,6 @@ describe("Color Code Converter API 1", function() {
 
         it("returns the color in RGB", function() {});
 
-    });
-
-});
-
-describe("Color Code Converter API 4", function() {
-    var myIp = fs.readFileSync('logs/ip.log', 'utf8');
-
-    describe("RGB to Hex conversion 5", function() {
-
-        var url = "http://"+myIp+":3000/rgbToHex?red=255&green=255&blue=255";
-        console.log(url);
-
-        it("returns status 200", function(done) {
-            request(url, function(error, response, body) {
-                expect(response.statusCode).to.equal(200);
-                done();
-            });
-        });
-
-        it("returns the color in hex", function(done) {
-            request(url, function(error, response, body) {
-                expect(body).to.equal("ffffff");
-                done();
-            });
-        });
-
-    });
-
-    describe("Hex to RGB conversion 6", function() {
-
-        var url = "http://"+myIp+":3000/hexToRgb?hex=00ff00";
-
-        it("returns status 200", function(done) {
-            request(url, function(error, response, body) {
-                console.log(error);
-                console.log(response);
-                console.log(body);
-                expect(response.statusCode).to.equal(200);
-                done();
-            });
-        });
-
-        it("returns the color in RGB 7", function(done) {
-            request(url, function(error, response, body) {
-                expect(body).to.equal("[0,255,0]");
-                done();
-            });
-        });
     });
 
 });
