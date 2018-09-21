@@ -1,0 +1,30 @@
+{
+  "name": "iacircleci",
+  "version": "1.0.0",
+  "description": "Circle ci demo with tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krainet/iacircleci.git"
+  },
+  "keywords": [
+    "circleci",
+    "test",
+    "example"
+  ],
+  "author": "Ramón Albertí Danés",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krainet/iacircleci/issues"
+  },
+  "homepage": "https://github.com/krainet/iacircleci#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "request": "^2.88.0"
+  }
+}
